@@ -1,0 +1,18 @@
+# Go
+/server
+*.db
+*.db-shm
+*.db-wal
+
+# Node
+web/node_modules
+web/dist
+
+# Secrets (real config is not committed)
+config.yml
+.env
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/

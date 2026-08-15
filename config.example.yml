@@ -1,0 +1,16 @@
+site:
+  # Password used to sign in to the web UI (required).
+  password: "CHANGE_ME_PASSWORD"
+  # How long each randomly generated install key stays valid (e.g. 1h, 24h, 7d).
+  # After this time a new key is generated and old install links stop working.
+  install_key_ttl: "24h"
+  # Optional public base URL for generated install links. When empty, the
+  # request origin (scheme + host) is used instead. Useful behind a proxy.
+  public_url: ""
+
+server:
+  addr: ":8080"
+
+database:
+  # SQLite file path. The container mounts a volume at /data.
+  path: "/data/app.db"
