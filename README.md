@@ -35,7 +35,7 @@ helm upgrade --install install-scripts-controller \
   --version 0.1.0 \
   --namespace install-scripts-controller \
   --create-namespace \
-  --set config.password='your-password' \
+  --set secrets.password='your-password' \
   --set ingress.enabled=true \
   --set ingress.host='scripts.example.com'
 ```
@@ -47,23 +47,24 @@ helm upgrade --install install-scripts-controller \
   ./helm/install-scripts-controller \
   --namespace install-scripts-controller \
   --create-namespace \
-  --set config.password='your-password'
+  --set secrets.password='your-password'
 ```
 
 Key values (`helm show values oci://ghcr.io/nrf24l01/charts/install-scripts-controller`):
 
-| Value                    | Default                                              | Description                                   |
-| ------------------------ | ---------------------------------------------------- | --------------------------------------------- |
-| `config.password`        | `""` (required)                                      | UI sign-in password                          |
-| `config.installKeyTTL`   | `24h`                                                | How long each install key stays valid        |
-| `config.publicUrl`       | `""`                                                 | Public base URL for install links            |
-| `server.addr`            | `:8080`                                              | Address the app listens on inside the pod    |
-| `database.path`          | `/data/app.db`                                       | SQLite DB path (keep under `/data`)          |
-| `persistence.enabled`    | `true`                                               | Persistent volume for the SQLite database    |
-| `persistence.size`       | `1Gi`                                                | PVC size                                     |
-| `ingress.enabled`        | `false`                                              | Expose via Ingress                           |
-| `ingress.host`           | `""`                                                 | Ingress host (e.g. `scripts.example.com`)    |
-| `image.tag`              | `latest`                                             | App image tag from GHCR                      |
+| Value                     | Default                                              | Description                                   |
+| ------------------------- | ---------------------------------------------------- | --------------------------------------------- |
+| `secrets.password`        | `""` (required)                                      | UI sign-in password                          |
+| `secrets.create`          | `true`                                               | Create the config Secret (else use `secrets.name`) |
+| `config.installKeyTTL`    | `24h`                                                | How long each install key stays valid        |
+| `config.publicUrl`        | `""`                                                 | Public base URL for install links            |
+| `config.serverAddr`       | `:8080`                                              | Address the app listens on inside the pod    |
+| `config.databasePath`     | `/data/app.db`                                       | SQLite DB path (keep under `/data`)          |
+| `persistence.enabled`     | `true`                                               | Persistent volume for the SQLite database    |
+| `persistence.size`        | `1Gi`                                                | PVC size                                     |
+| `ingress.enabled`         | `false`                                              | Expose via Ingress                           |
+| `ingress.host`            | `""`                                                 | Ingress host (e.g. `scripts.example.com`)    |
+| `image.tag`               | `latest`                                             | App image tag from GHCR                      |
 
 Access the app without an Ingress:
 

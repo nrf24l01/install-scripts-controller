@@ -1,44 +1,30 @@
+replicaCount: 1
+
 image:
   repository: ghcr.io/nrf24l01/install-scripts-controller/install-scripts-controller
   tag: latest
-  pullPolicy: Always
-
-nameOverride: ""
-fullnameOverride: ""
-
-imagePullSecrets: []
-
-# SQLite is a single-writer database; keep this at 1.
-replicaCount: 1
-
-serviceAccount:
-  create: true
-  name: ""
-
-podSecurityContext: {}
-securityContext: {}
-
-service:
-  type: ClusterIP
-  port: 80
-  targetPort: http
+  pullPolicy: IfNotPresent
 
 config:
-  # Password used to sign in to the web UI (required).
-  password: ""
   # How long each randomly generated install key stays valid.
   installKeyTTL: "24h"
   # Optional public base URL for install links (e.g. https://scripts.example.com).
   publicUrl: ""
-
-server:
-  # Address the app listens on inside the pod.
-  addr: ":8080"
-
-database:
+  # Address the app listens on inside the pod. Keep in sync with service.targetPort.
+  serverAddr: ":8080"
   # Path to the SQLite database file. Keep it under /data so it lands on the
   # persistent volume when persistence.enabled.
-  path: "/data/app.db"
+  databasePath: "/data/app.db"
+
+secrets:
+  create: true
+  name: ""
+  # Password used to sign in to the web UI (required when create=true).
+  password: ""
+
+service:
+  type: ClusterIP
+  port: 80
 
 persistence:
   enabled: true
@@ -49,22 +35,39 @@ persistence:
 ingress:
   enabled: false
   className: ""
+  annotations: {}
   host: ""
   tls:
     - secretName: ""
       hosts: []
 
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 65532
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65532
+
 resources:
-  {}
-  # limits:
-  #   cpu: 200m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 64Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
