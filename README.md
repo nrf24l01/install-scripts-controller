@@ -57,8 +57,12 @@ Key values (`helm show values oci://ghcr.io/nrf24l01/charts/install-scripts-cont
 | `config.password`        | `""` (required)                                      | UI sign-in password                          |
 | `config.installKeyTTL`   | `24h`                                                | How long each install key stays valid        |
 | `config.publicUrl`       | `""`                                                 | Public base URL for install links            |
+| `server.addr`            | `:8080`                                              | Address the app listens on inside the pod    |
+| `database.path`          | `/data/app.db`                                       | SQLite DB path (keep under `/data`)          |
 | `persistence.enabled`    | `true`                                               | Persistent volume for the SQLite database    |
+| `persistence.size`       | `1Gi`                                                | PVC size                                     |
 | `ingress.enabled`        | `false`                                              | Expose via Ingress                           |
+| `ingress.host`           | `""`                                                 | Ingress host (e.g. `scripts.example.com`)    |
 | `image.tag`              | `latest`                                             | App image tag from GHCR                      |
 
 Access the app without an Ingress:

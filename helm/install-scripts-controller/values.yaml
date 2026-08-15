@@ -31,7 +31,13 @@ config:
   # Optional public base URL for install links (e.g. https://scripts.example.com).
   publicUrl: ""
 
+server:
+  # Address the app listens on inside the pod.
+  addr: ":8080"
+
 database:
+  # Path to the SQLite database file. Keep it under /data so it lands on the
+  # persistent volume when persistence.enabled.
   path: "/data/app.db"
 
 persistence:
