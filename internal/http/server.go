@@ -2,6 +2,7 @@ package httpsrv
 
 import (
 	"database/sql"
+	"net/http"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -53,4 +54,9 @@ func (s *Server) setupRoutes() {
 
 func (s *Server) Start() error {
 	return s.e.Start(s.cfg.Server.Addr)
+}
+
+// Handler exposes the underlying http.Handler (used by tests and embedders).
+func (s *Server) Handler() http.Handler {
+	return s.e
 }

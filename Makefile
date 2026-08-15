@@ -1,4 +1,4 @@
-.PHONY: dev dev-web dev-backend build up down logs smoke
+.PHONY: dev dev-web dev-backend test build-web build up down logs smoke
 
 dev: dev-backend dev-web
 
@@ -7,6 +7,9 @@ dev-backend:
 
 dev-web:
 	cd web && npm run dev
+
+test:
+	go test ./...
 
 build-web:
 	cd web && npm run build
