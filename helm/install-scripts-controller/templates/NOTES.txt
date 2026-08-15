@@ -1,0 +1,13 @@
+Install Scripts Controller is deployed.
+
+Get the application URL:
+{{- if .Values.ingress.enabled }}
+  http://{{ .Values.ingress.host }}
+{{- else }}
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "install-scripts-controller.fullname" . }} 1325:{{ .Values.service.port }}
+  Then open http://localhost:1325
+{{- end }}
+
+Sign in with the password set via config.password (values.yaml / --set).
+Install links are generated in the UI; each embeds a random auth key that
+rotates every {{ .Values.config.installKeyTTL }}.

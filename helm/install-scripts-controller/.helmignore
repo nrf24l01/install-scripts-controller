@@ -1,0 +1,7 @@
+# Patterns to ignore when building packages.
+# See https://helm.sh/docs/chart_template_guide/#the-chart-file
+.DS_Store
+.git/
+.gitignore
+*.tmp
+*.tgz

@@ -1,0 +1,26 @@
+image:
+  repository: ghcr.io/nrf24l01/install-scripts-controller/install-scripts-controller
+  tag: latest
+  pullPolicy: Always
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+
+config:
+  password: "CHANGE_ME"
+  installKeyTTL: "24h"
+  publicUrl: ""
+
+database:
+  path: "/data/app.db"
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+ingress:
+  enabled: false
+  host: ""

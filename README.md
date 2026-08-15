@@ -20,6 +20,61 @@ then share a single `curl | bash` command per script.
 
 3. Open http://localhost:1325 and sign in with the password.
 
+## Kubernetes (Helm)
+
+A Helm chart lives in `helm/install-scripts-controller`. CI packages it and
+pushes it to `oci://ghcr.io/nrf24l01/charts/install-scripts-controller` on every
+change to `helm/**` or `deploy/**` (skipped if the version already exists —
+bump `version` in `Chart.yaml` to publish a new one).
+
+Install/upgrade from the registry:
+
+```sh
+helm upgrade --install install-scripts-controller \
+  oci://ghcr.io/nrf24l01/charts/install-scripts-controller \
+  --version 0.1.0 \
+  --namespace install-scripts-controller \
+  --create-namespace \
+  --set config.password='your-password' \
+  --set ingress.enabled=true \
+  --set ingress.host='scripts.example.com'
+```
+
+Or from the local chart (e.g. while developing):
+
+```sh
+helm upgrade --install install-scripts-controller \
+  ./helm/install-scripts-controller \
+  --namespace install-scripts-controller \
+  --create-namespace \
+  --set config.password='your-password'
+```
+
+Key values (`helm show values oci://ghcr.io/nrf24l01/charts/install-scripts-controller`):
+
+| Value                    | Default                                              | Description                                   |
+| ------------------------ | ---------------------------------------------------- | --------------------------------------------- |
+| `config.password`        | `""` (required)                                      | UI sign-in password                          |
+| `config.installKeyTTL`   | `24h`                                                | How long each install key stays valid        |
+| `config.publicUrl`       | `""`                                                 | Public base URL for install links            |
+| `persistence.enabled`    | `true`                                               | Persistent volume for the SQLite database    |
+| `ingress.enabled`        | `false`                                              | Expose via Ingress                           |
+| `image.tag`              | `latest`                                             | App image tag from GHCR                      |
+
+Access the app without an Ingress:
+
+```sh
+kubectl port-forward -n install-scripts-controller \
+  svc/install-scripts-controller 1325:80
+# open http://localhost:1325
+```
+
+Remove it:
+
+```sh
+helm uninstall install-scripts-controller -n install-scripts-controller
+```
+
 ## Config
 
 All options live in one YAML file. The location defaults to `config.yml` in the

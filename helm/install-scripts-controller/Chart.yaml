@@ -1,0 +1,6 @@
+apiVersion: v2
+name: install-scripts-controller
+description: Hosts shell install scripts behind a password-protected web UI
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

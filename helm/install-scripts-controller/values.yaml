@@ -1,0 +1,64 @@
+image:
+  repository: ghcr.io/nrf24l01/install-scripts-controller/install-scripts-controller
+  tag: latest
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+
+# SQLite is a single-writer database; keep this at 1.
+replicaCount: 1
+
+serviceAccount:
+  create: true
+  name: ""
+
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: http
+
+config:
+  # Password used to sign in to the web UI (required).
+  password: ""
+  # How long each randomly generated install key stays valid.
+  installKeyTTL: "24h"
+  # Optional public base URL for install links (e.g. https://scripts.example.com).
+  publicUrl: ""
+
+database:
+  path: "/data/app.db"
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: ""
+  accessMode: ReadWriteOnce
+
+ingress:
+  enabled: false
+  className: ""
+  host: ""
+  tls:
+    - secretName: ""
+      hosts: []
+
+resources:
+  {}
+  # limits:
+  #   cpu: 200m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 64Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
