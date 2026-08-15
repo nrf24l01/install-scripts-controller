@@ -279,6 +279,15 @@ func TestDeleteScriptNotFoundIsOk(t *testing.T) {
 	}
 }
 
+func TestHealthEndpoint(t *testing.T) {
+	ts := newTestServer(t, "1h")
+	res := request(t, http.MethodGet, ts.URL+"/healthz", "", nil)
+	res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		t.Errorf("healthz: status = %d, want 200", res.StatusCode)
+	}
+}
+
 func TestSPAServesIndex(t *testing.T) {
 	ts := newTestServer(t, "1h")
 	for _, path := range []string{"/", "/scripts", "/unknown-route"} {

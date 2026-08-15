@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { api, setToken } from '@/services/api'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 
 const router = useRouter()
 const password = ref('')
@@ -37,6 +38,9 @@ async function onSubmit() {
 
 <template>
   <div class="flex min-h-screen items-center justify-center bg-muted p-4">
+    <div class="fixed top-4 right-4">
+      <ThemeToggle />
+    </div>
     <Card class="w-full max-w-sm">
       <CardHeader class="text-center">
         <CardTitle class="text-2xl">Install Scripts</CardTitle>

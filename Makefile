@@ -29,5 +29,5 @@ logs:
 # Quick smoke test against a running container (uses values from config.yml).
 smoke:
 	@echo "== login =="
-	@curl -s -X POST localhost:8080/api/login -H 'Content-Type: application/json' \
+	@curl -s -X POST localhost:1325/api/login -H 'Content-Type: application/json' \
 		-d '{"password":"CHANGE_ME_PASSWORD"}'

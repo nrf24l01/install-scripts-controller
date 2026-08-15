@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { toast } from 'vue-sonner'
 import { Copy, Eye, EyeOff, Trash2 } from '@lucide/vue'
 import { Button } from '@/components/ui/button'
@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import hljs from '@/lib/highlight'
 import { api, type Script } from '@/services/api'
 
 const props = defineProps<{ script: Script }>()
@@ -21,6 +22,11 @@ const body = ref<string | null>(null)
 const showBody = ref(false)
 const loadingBody = ref(false)
 const deleting = ref(false)
+
+const highlightedBody = computed(() => {
+  const code = body.value ?? ''
+  return code ? hljs.highlightAuto(code).value : ''
+})
 
 function installCommand(): string {
   return `curl -sSL "${props.script.install_url}" | bash`
@@ -117,8 +123,9 @@ async function remove() {
         </Button>
         <pre
           v-if="showBody"
-          class="bg-muted mt-2 max-h-96 overflow-x-auto overflow-y-auto rounded-md p-4 font-mono text-xs"
-        >{{ body }}</pre>
+          class="bg-muted mt-2 max-h-96 overflow-auto rounded-md p-4 font-mono text-xs"
+          v-html="highlightedBody"
+        ></pre>
       </div>
     </CardContent>
   </Card>

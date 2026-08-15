@@ -18,7 +18,7 @@ then share a single `curl | bash` command per script.
    docker compose up --build -d
    ```
 
-3. Open http://localhost:8080 and sign in with the password.
+3. Open http://localhost:1325 and sign in with the password.
 
 ## Config
 
@@ -65,6 +65,13 @@ working until you copy a fresh one from the UI.
 | POST   | `/api/scripts`        | Bearer | Create script                    |
 | DELETE | `/api/scripts/:id`    | Bearer | Delete script                    |
 | GET    | `/install?id&key`     | query  | Raw script content (for curl)    |
+| GET    | `/healthz`            | –      | Liveness check (used by Docker)  |
+
+## Health check
+
+The container publishes `1325:8080` and runs a Docker healthcheck against
+`/healthz` (which pings the database). Start with `docker compose up -d` and
+check status via `docker compose ps`.
 
 ## Local development
 

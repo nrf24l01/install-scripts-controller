@@ -48,6 +48,8 @@ func (s *Server) setupRoutes() {
 
 	e.GET("/install", s.handleInstall)
 
+	e.GET("/healthz", s.handleHealth)
+
 	e.GET("/", s.spa)
 	e.GET("/*", s.spa)
 }

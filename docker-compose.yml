@@ -1,13 +1,23 @@
 services:
   app:
+    # Built and pushed to GHCR by the CI/CD workflow
+    # (.github/workflows/backend.yml) on every push to main.
+    image: ghcr.io/nrf24l01/install-scripts-controller/install-scripts-controller:latest
+    pull_policy: always
     build: .
     ports:
-      - "8080:8080"
+      - "1325:8080"
     environment:
       CONFIG_PATH: /app/config.yml
     volumes:
       - ./config.yml:/app/config.yml:ro
       - app-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     restart: unless-stopped
 
 volumes:

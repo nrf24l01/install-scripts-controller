@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { api, setToken, type Script } from '@/services/api'
 import AddScriptDialog from '@/components/AddScriptDialog.vue'
 import ScriptCard from '@/components/ScriptCard.vue'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 
 const router = useRouter()
 const scripts = ref<Script[]>([])
@@ -45,6 +46,7 @@ onMounted(load)
         </p>
       </div>
       <div class="flex gap-2">
+        <ThemeToggle />
         <Button @click="addOpen = true">
           Add script
         </Button>

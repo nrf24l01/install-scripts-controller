@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "highlight.js/styles/github.css";
+@import "./highlight-dark.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -117,4 +119,24 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* highlight.js theme: keep token colors, but let our layout classes
+   (pre styling: background, padding, overflow, font) win. */
+.hljs {
+  display: block;
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Dark theme tokens (scoped in highlight-dark.css); keep transparent bg. */
+.dark .hljs {
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
 }
