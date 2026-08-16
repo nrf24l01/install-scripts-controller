@@ -61,7 +61,7 @@ async function submit() {
 
 <template>
   <Dialog v-model:open="open">
-    <DialogContent class="max-w-lg">
+    <DialogContent class="max-w-lg max-h-[90vh] overflow-y-auto">
       <DialogHeader>
         <DialogTitle>Add script</DialogTitle>
         <DialogDescription>
@@ -93,7 +93,7 @@ async function submit() {
             id="script-body"
             v-model="script"
             placeholder="#!/bin/bash&#10;..."
-            class="min-h-48 font-mono"
+            class="min-h-48 max-h-[60vh] overflow-y-auto font-mono"
             :disabled="submitting"
           />
         </div>
