@@ -25,6 +25,10 @@ secrets:
 service:
   type: ClusterIP
   port: 80
+  # Name of the container port to route to.
+  targetPort: http
+  # Fixed nodePort when service.type=NodePort (kube picks one if empty).
+  nodePort: ""
 
 persistence:
   enabled: true

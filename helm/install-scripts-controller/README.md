@@ -9,7 +9,7 @@ From the OCI registry (published by CI):
 ```sh
 helm upgrade --install install-scripts-controller \
   oci://ghcr.io/nrf24l01/charts/install-scripts-controller \
-  --version 0.2.0 \
+  --version 0.2.1 \
   --namespace install-scripts-controller \
   --create-namespace \
   --set secrets.password='your-password'
@@ -50,6 +50,8 @@ kubectl port-forward -n install-scripts-controller svc/install-scripts-controlle
 | `config.databasePath`  | `/data/app.db`                                       | SQLite DB path (keep under `/data`)        |
 | `service.type`         | `ClusterIP`                                          | Service type                               |
 | `service.port`         | `80`                                                 | Service port                               |
+| `service.targetPort`   | `http`                                               | Container port to route to                  |
+| `service.nodePort`     | `""`                                                 | Fixed nodePort when `type=NodePort` (auto-assigned if empty) |
 | `persistence.enabled`  | `true`                                               | Persistent volume for the database         |
 | `persistence.size`     | `1Gi`                                                | PVC size                                   |
 | `persistence.storageClass` | `""`                                             | PVC storage class                          |

@@ -32,7 +32,7 @@ Install/upgrade from the registry:
 ```sh
 helm upgrade --install install-scripts-controller \
   oci://ghcr.io/nrf24l01/charts/install-scripts-controller \
-  --version 0.2.0 \
+  --version 0.2.1 \
   --namespace install-scripts-controller \
   --create-namespace \
   --set secrets.password='your-password' \

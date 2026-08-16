@@ -2,5 +2,5 @@ apiVersion: v2
 name: install-scripts-controller
 description: Hosts shell install scripts behind a password-protected web UI
 type: application
-version: 0.2.0
+version: 0.2.1
 appVersion: "0.1.0"
