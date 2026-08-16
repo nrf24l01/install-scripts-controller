@@ -9,7 +9,7 @@ From the OCI registry (published by CI):
 ```sh
 helm upgrade --install install-scripts-controller \
   oci://ghcr.io/nrf24l01/charts/install-scripts-controller \
-  --version 0.1.0 \
+  --version 0.2.0 \
   --namespace install-scripts-controller \
   --create-namespace \
   --set secrets.password='your-password'
